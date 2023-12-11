@@ -1,0 +1,103 @@
+main {
+    width: 100%;
+    overflow: hidden;
+
+    .slick-slide {
+        margin-top: 25%;
+        padding: 0 65px;
+
+        width: 100%;
+        overflow: hidden;
+
+        a {
+            .img-container {
+                display: block;
+                width: 100%;
+                height: 100%;
+
+                img {
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+    .movie-recommend {
+        margin-top: 30px;
+        padding: 0 65px;
+
+        h2 {
+            color: #fff;
+        }
+        
+        &__cards {
+            display: flex;
+            flex-wrap: nowrap;
+            width: 100%;
+            gap: 30px;
+            overflow-x: scroll;
+
+            .card {
+
+                a {
+                    .wrapper {
+                        img {
+                            width: 150px;
+                        }
+                        .detail {
+                            h3 {
+        
+                            }
+        
+                            p {
+        
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .movie-list {
+        margin-top: 30px;
+        padding: 0 65px;
+
+        h2 {
+            color: #fff;
+        }
+
+        &__cards {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            gap: 30px;
+
+            .card {
+                width: 150px;
+
+                a {
+                    .wrapper {
+                        img {
+        
+                        }
+                        .detail {
+                            h3 {
+        
+                            }
+        
+                            p {
+        
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.scroller {
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
