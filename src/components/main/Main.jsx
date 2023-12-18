@@ -1,3 +1,6 @@
+import React, { useState, useEffect} from 'react';
+import movies_data from 'src/assets/data/movies_data.json'
+
 function Main(){
     return (
         <>
@@ -10,8 +13,8 @@ function Main(){
                     <h2 className="movie-recommend__title">
                         每月推薦
                     </h2>
-                    <div className="movie-recommend__cards scroller">
-                        <Recommend />
+                    <div className="movie-recommend__cards">
+                        <Recommend movies_data={movies_data}/>
                     </div>
                 </section>
 
@@ -20,7 +23,7 @@ function Main(){
                         流行趨勢
                     </h2>
                     <div className="movie-list__cards">
-                        <MovieList />
+                        <MovieList movies_data={movies_data}/>
                     </div>
                 </section>
                 
@@ -43,269 +46,59 @@ function Slide(){
     )
 }
 
-function Recommend(){
+function Recommend({ movies_data }){
+    const BASE_URL = "https://movie-list.alphacamp.io";
+    const POSTER_URL = BASE_URL + "/posters/";
+    const movies = movies_data.results;
+
+        const randomMovies = []
+        for (let i = randomMovies.length; i < 10; i++){
+            const randomIndex = Math.floor(Math.random() * movies.length)
+            if (!randomMovies.includes(movies[randomIndex])){
+                randomMovies.push(movies[randomIndex])
+            }
+        }  
+
     return (
         <>
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
+            {randomMovies.map(data => 
+                <div className="card" key={data.id}>
+                    <a href="">
+                        <div className="wrapper">
+                            <img src={POSTER_URL + data.image} alt="" />
+                            <div className="detail">
+                                <h4 className="title">{data.title}</h4>
+                                <p className="date">{data.release_date}</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>    
+            )}
         </>
     )
 }
 
-const testImg = "https://github.com/ALPHACamp/movie-list-api/blob/master/public/posters/c9XxwwhPHdaImA2f1WEfEsbhaFB.jpg?raw=true";
-const title = "JURASSIK WORLD";
-const date = "20231118";
 
-function MovieList(){
+function MovieList({ movies_data }){
+    const BASE_URL = "https://movie-list.alphacamp.io";
+    const POSTER_URL = BASE_URL + "/posters/";
+    const movies = movies_data.results;
+
     return (
         <>
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
+            {movies.map(data => 
+                <div className="card" key={data.id}>
+                    <a href="">
+                        <div className="wrapper">
+                            <img src={POSTER_URL + data.image} alt="" />
+                            <div className="detail">
+                                <h4 className="title">{data.title}</h4>
+                                <p className="date">{data.release_date}</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>  
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>  
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>  
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div className="card">
-                <a href="">
-                    <div className="wrapper">
-                        <img src={testImg} alt="" />
-                        <div className="detail">
-                            <h4 className="title">{title}</h4>
-                            <p className="date">{date}</p>
-                        </div>
-                    </div>
-                </a>
-            </div>                
+                    </a>
+                </div>
+            )}
         </>
     )
 }
