@@ -11,7 +11,7 @@ function Main(){
                 
                 <section className="movie-recommend">
                     <h2 className="movie-recommend__title">
-                        每月推薦
+                        推薦
                     </h2>
                     <div className="movie-recommend__cards">
                         <Recommend movies_data={movies_data}/>
@@ -20,7 +20,7 @@ function Main(){
 
                 <section className="movie-list">
                     <h2 className="movie-list__title">
-                        流行趨勢
+                        趨勢
                     </h2>
                     <div className="movie-list__cards">
                         <MovieList movies_data={movies_data}/>

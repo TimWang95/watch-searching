@@ -27,7 +27,9 @@ main {
         padding: 0 65px;
 
         h2 {
+            margin: 20px 0;
             color: #fff;
+            font-size: 1.5em;
         }
         
         &__cards {
@@ -45,12 +47,16 @@ main {
                             width: 150px;
                         }
                         .detail {
-                            h3 {
-        
+                            padding-top: 10px;
+                            h4 {
+                                padding-bottom: 3px;
+                                color: #fff;
+                                font-size: 1em;
                             }
         
                             p {
-        
+                                color: #a3a3a3;
+                                font-size: 0.9em;
                             }
                         }
                     }
@@ -64,7 +70,9 @@ main {
         padding: 0 65px;
 
         h2 {
+            margin: 20px 0;
             color: #fff;
+            font-size: 1.5em;
         }
 
         &__cards {
@@ -83,12 +91,16 @@ main {
         
                         }
                         .detail {
-                            h3 {
-        
+                            padding-top: 10px;
+                            h4 {
+                                padding-bottom: 3px;
+                                color: #fff;
+                                font-size: 1em;
                             }
         
                             p {
-        
+                                color: #a3a3a3;
+                                font-size: 0.9em;
                             }
                         }
                     }
