@@ -83,22 +83,54 @@ function MovieList({ movies_data }){
     const BASE_URL = "https://movie-list.alphacamp.io";
     const POSTER_URL = BASE_URL + "/posters/";
     const movies = movies_data.results;
+    const moviesPerPage = 15;
+
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const indexOfLastMovie = currentPage * moviesPerPage;
+    const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
+    const currentMovies  = movies.slice(indexOfFirstMovie, indexOfLastMovie);
+
+    const totalPages = Math.ceil(movies.length / moviesPerPage);
+
+    const renderMovies = () => {
+        return (
+            <>
+                {currentMovies.map(data => 
+                    <div className="card" key={data.id}>
+                        <a href="">
+                            <div className="wrapper">
+                                <img src={POSTER_URL + data.image} alt="" />
+                                <div className="detail">
+                                    <h4 className="title">{data.title}</h4>
+                                    <p className="date">{data.release_date}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                )}
+            </>
+        )
+    }
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    }
 
     return (
         <>
-            {movies.map(data => 
-                <div className="card" key={data.id}>
-                    <a href="">
-                        <div className="wrapper">
-                            <img src={POSTER_URL + data.image} alt="" />
-                            <div className="detail">
-                                <h4 className="title">{data.title}</h4>
-                                <p className="date">{data.release_date}</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            )}
+            {renderMovies()}
+            <div className="pagination">
+                {Array.from({ length: totalPages }).map((_, index) => (
+                    <button
+                        key={index + 1}
+                        onClick={() => handlePageChange(index + 1)}
+                        className={currentPage === index + 1 ? 'active' : ''}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
+            </div>
         </>
     )
 }
