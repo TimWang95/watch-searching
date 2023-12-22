@@ -33,6 +33,7 @@ main {
         }
         
         &__cards {
+            position: relative;
             display: flex;
             flex-wrap: nowrap;
             width: 100%;
@@ -65,9 +66,43 @@ main {
             }
 
             .modal {
-                border: 1px solid #fff;
-                .modal-content {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 70%;
+                background: #fff;
+                border-radius: 15px;
+                box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.7);
 
+                .modal-content {
+                    .content-top {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 20px 20px;
+
+                        span {
+                            width: 30px;
+
+                        }
+                    }
+                    .content-bottom {
+                        display: flex;
+                        img {
+                            width: 50%;
+                            border-radius: 0 60px 0 0;
+                        }
+                        .detail {
+                            padding: 30px;
+                            p {
+                                padding-bottom: 20px;
+                            }
+                            h4 {
+                                padding-bottom: 10px;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -112,6 +147,47 @@ main {
                                     color: #a3a3a3;
                                     font-size: 0.9em;
                                 }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 70%;
+                background: #fff;
+                border-radius: 15px;
+                box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.7);
+
+                .modal-content {
+                    .content-top {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 20px 20px;
+
+                        span {
+                            width: 30px;
+
+                        }
+                    }
+                    .content-bottom {
+                        display: flex;
+                        img {
+                            width: 50%;
+                            border-radius: 0 60px 0 0;
+                        }
+                        .detail {
+                            padding: 30px;
+                            p {
+                                padding-bottom: 20px;
+                            }
+                            h4 {
+                                padding-bottom: 10px;
                             }
                         }
                     }

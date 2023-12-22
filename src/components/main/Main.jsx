@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from 'react';
-import movies_data from 'src/assets/data/movies_data.json'
+import movies_data from 'src/assets/data/movies_data.json';
+import {ReactComponent as Close} from 'src/assets/icons/close-outline.svg';
 
 function Main(){
     return (
@@ -25,6 +26,7 @@ function Main(){
                     <div className="movie-list__cards">
                         <MovieList movies_data={movies_data}/>
                     </div>
+                    
                 </section>
                 
             </main>
@@ -51,19 +53,26 @@ function Recommend({ movies_data }){
     const POSTER_URL = BASE_URL + "/posters/";
     const movies = movies_data.results;
 
-        const randomMovies = []
-        for (let i = randomMovies.length; i < 10; i++){
-            const randomIndex = Math.floor(Math.random() * movies.length)
-            if (!randomMovies.includes(movies[randomIndex])){
-                randomMovies.push(movies[randomIndex])
-            }
-        }  
+    const recommendMovies = [];
+    for (let i = 23; i < 33; i++){
+        recommendMovies.push(movies[i]);
+    }
+    
+    // modal
+    const [selectedMovie, setSelectedMovie] = useState(null);
+    const handleMovieClick = (movie) => {
+        setSelectedMovie(movie);
+    }
+    const handleCloseModal = () => {
+        setSelectedMovie(null);
+    }
+
 
     return (
         <>
-            {randomMovies.map(data => 
+            {recommendMovies.map(data => 
                 <div className="card" key={data.id}>
-                    <a href="">
+                    <button onClick={() => handleMovieClick(data)}>
                         <div className="wrapper">
                             <img src={POSTER_URL + data.image} alt="" />
                             <div className="detail">
@@ -71,8 +80,30 @@ function Recommend({ movies_data }){
                                 <p className="date">{data.release_date}</p>
                             </div>
                         </div>
-                    </a>
+                    </button>
                 </div>    
+            )}
+
+            {selectedMovie && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <div className="content-top">
+                            <h4 className="title">{selectedMovie.title}</h4>
+                            <span className="close" onClick={handleCloseModal}>
+                                <Close/>
+                            </span>
+
+                        </div>
+                        <div className="content-bottom">
+                            <img src={POSTER_URL + selectedMovie.image} alt="" />
+                            <div className="detail">
+                                <p className="date">{selectedMovie.release_date}</p>
+                                <h4>Description:</h4>
+                                <p className="description">{selectedMovie.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             )}
         </>
     )
@@ -83,8 +114,9 @@ function MovieList({ movies_data }){
     const BASE_URL = "https://movie-list.alphacamp.io";
     const POSTER_URL = BASE_URL + "/posters/";
     const movies = movies_data.results;
-    const moviesPerPage = 15;
-
+    
+    // pagination
+    const moviesPerPage = 12;
     const [currentPage, setCurrentPage] = useState(1);
 
     const indexOfLastMovie = currentPage * moviesPerPage;
@@ -93,20 +125,54 @@ function MovieList({ movies_data }){
 
     const totalPages = Math.ceil(movies.length / moviesPerPage);
 
+    // modal
+    const [selectedMovie, setSelectedMovie] = useState(null);
+    const handleMovieClick = (movie) => {
+        setSelectedMovie(movie);
+        console.log(movie);
+    }
+    const handleCloseModal = () => {
+        setSelectedMovie(null);
+    }
+
     const renderMovies = () => {
         return (
             <>
-                {currentMovies.map(data => 
-                    <div className="card" key={data.id}>
-                        <a href="">
-                            <div className="wrapper">
-                                <img src={POSTER_URL + data.image} alt="" />
+                <div className='cards-container'>
+                    {currentMovies.map(data => 
+                        <div className="card" key={data.id} >
+                            <button onClick={() => handleMovieClick(data)}>
+                                <div className="wrapper">
+                                    <img src={POSTER_URL + data.image} alt="" />
+                                    <div className="detail">
+                                        <h4 className="title">{data.title}</h4>
+                                        <p className="date">{data.release_date}</p>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    )}
+                </div>
+
+                {selectedMovie && (
+                    <div className="modal">
+                        <div className="modal-content">
+                            <div className="content-top">
+                                <h4 className="title">{selectedMovie.title}</h4>
+                                <span className="close" onClick={handleCloseModal}>
+                                    <Close/>
+                                </span>
+
+                            </div>
+                            <div className="content-bottom">
+                                <img src={POSTER_URL + selectedMovie.image} alt="" />
                                 <div className="detail">
-                                    <h4 className="title">{data.title}</h4>
-                                    <p className="date">{data.release_date}</p>
+                                    <p className="date">{selectedMovie.release_date}</p>
+                                    <h4>Description:</h4>
+                                    <p className="description">{selectedMovie.description}</p>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 )}
             </>
