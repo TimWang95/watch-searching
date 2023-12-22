@@ -25,7 +25,7 @@ main {
     .movie-recommend {
         margin-top: 30px;
         padding: 0 65px;
-
+        
         h2 {
             margin: 20px 0;
             color: #fff;
@@ -40,11 +40,12 @@ main {
             overflow-x: scroll;
 
             .card {
-
-                a {
+                
+                button {
                     .wrapper {
                         img {
                             width: 150px;
+                            border-radius: 15px;
                         }
                         .detail {
                             padding-top: 10px;
@@ -60,6 +61,13 @@ main {
                             }
                         }
                     }
+                }
+            }
+
+            .modal {
+                border: 1px solid #fff;
+                .modal-content {
+
                 }
             }
         }
@@ -76,31 +84,34 @@ main {
         }
 
         &__cards {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            width: 100%;
-            gap: 30px;
-
-            .card {
-                width: 200px;
-
-                a {
-                    .wrapper {
-                        img {
-        
-                        }
-                        .detail {
-                            padding-top: 10px;
-                            h4 {
-                                padding-bottom: 3px;
-                                color: #fff;
-                                font-size: 1em;
+            .cards-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                width: 100%;
+                gap: 30px;
+                
+                .card {
+                    width: 200px;
+    
+                    button {
+                        .wrapper {
+                            img {
+                                border-radius: 15px;
+            
                             }
-        
-                            p {
-                                color: #a3a3a3;
-                                font-size: 0.9em;
+                            .detail {
+                                padding-top: 10px;
+                                h4 {
+                                    padding-bottom: 3px;
+                                    color: #fff;
+                                    font-size: 1em;
+                                }
+            
+                                p {
+                                    color: #a3a3a3;
+                                    font-size: 0.9em;
+                                }
                             }
                         }
                     }
@@ -108,6 +119,8 @@ main {
             }
 
             .pagination {
+                display: flex;
+                justify-content: center;
                 margin: 50px auto; 
                 button {
                     color: #fff;
