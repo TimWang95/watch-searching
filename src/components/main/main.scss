@@ -1,7 +1,7 @@
 main {
     width: 100%;
     overflow: hidden;
-
+    
     .slick-slide {
         margin-top: 25%;
         padding: 0 65px;
@@ -74,6 +74,7 @@ main {
                 background: #fff;
                 border-radius: 15px;
                 box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.7);
+                z-index: 99;
 
                 .modal-content {
                     .content-top {
@@ -162,6 +163,7 @@ main {
                 background: #fff;
                 border-radius: 15px;
                 box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.7);
+                z-index: 99;
 
                 .modal-content {
                     .content-top {

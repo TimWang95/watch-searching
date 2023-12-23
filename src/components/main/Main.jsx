@@ -2,10 +2,41 @@ import React, { useState, useEffect} from 'react';
 import movies_data from 'src/assets/data/movies_data.json';
 import {ReactComponent as Close} from 'src/assets/icons/close-outline.svg';
 
+const BASE_URL = "https://movie-list.alphacamp.io";
+const POSTER_URL = BASE_URL + "/posters/";
+const movies = movies_data.results;
+
 function Main(){
+    // modal
+    const [selectedMovie, setSelectedMovie] = useState(null);
+    const handleMovieClick = (movie) => {
+        setSelectedMovie(movie);
+    }
+    const handleCloseModal = () => {
+        setSelectedMovie(null);
+    }
+
+    const handleOutsideClick = (e) => {
+        if (!e.current){
+            setSelectedMovie(null);
+        }
+    }
+    const handleModalBubbling = (e) => {
+        e.stopPropagation()
+    }
+
+    useEffect(() => {
+        // 在 mount 時添加全局點擊事件監聽器
+        document.addEventListener('click', handleOutsideClick);
+        // 在 unmount 時移除事件監聽器
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+    }, []);
+
     return (
         <>
-            <main className="main">
+            <main className="main" onClick={handleOutsideClick}>
                 <div className="slick-slide">
                     <Slide />
                 </div>
@@ -15,7 +46,12 @@ function Main(){
                         推薦
                     </h2>
                     <div className="movie-recommend__cards">
-                        <Recommend movies_data={movies_data}/>
+                        <Recommend 
+                            selectedMovie={selectedMovie}
+                            handleMovieClick={handleMovieClick}
+                            handleCloseModal={handleCloseModal}    
+                            handleModalBubbling={handleModalBubbling}
+                        />
                     </div>
                 </section>
 
@@ -24,7 +60,12 @@ function Main(){
                         趨勢
                     </h2>
                     <div className="movie-list__cards">
-                        <MovieList movies_data={movies_data}/>
+                        <MovieList 
+                            selectedMovie={selectedMovie}
+                            handleMovieClick={handleMovieClick}
+                            handleCloseModal={handleCloseModal}    
+                            handleModalBubbling={handleModalBubbling}
+                        />
                     </div>
                     
                 </section>
@@ -48,30 +89,18 @@ function Slide(){
     )
 }
 
-function Recommend({ movies_data }){
-    const BASE_URL = "https://movie-list.alphacamp.io";
-    const POSTER_URL = BASE_URL + "/posters/";
-    const movies = movies_data.results;
+
+function Recommend({ selectedMovie, handleMovieClick,  handleCloseModal, handleModalBubbling}){
 
     const recommendMovies = [];
     for (let i = 23; i < 33; i++){
         recommendMovies.push(movies[i]);
     }
-    
-    // modal
-    const [selectedMovie, setSelectedMovie] = useState(null);
-    const handleMovieClick = (movie) => {
-        setSelectedMovie(movie);
-    }
-    const handleCloseModal = () => {
-        setSelectedMovie(null);
-    }
-
 
     return (
         <>
             {recommendMovies.map(data => 
-                <div className="card" key={data.id}>
+                <div className="card" key={data.id} onClick={handleModalBubbling}>
                     <button onClick={() => handleMovieClick(data)}>
                         <div className="wrapper">
                             <img src={POSTER_URL + data.image} alt="" />
@@ -85,7 +114,7 @@ function Recommend({ movies_data }){
             )}
 
             {selectedMovie && (
-                <div className="modal">
+                <div className="modal" onClick={handleModalBubbling}>
                     <div className="modal-content">
                         <div className="content-top">
                             <h4 className="title">{selectedMovie.title}</h4>
@@ -110,11 +139,7 @@ function Recommend({ movies_data }){
 }
 
 
-function MovieList({ movies_data }){
-    const BASE_URL = "https://movie-list.alphacamp.io";
-    const POSTER_URL = BASE_URL + "/posters/";
-    const movies = movies_data.results;
-    
+function MovieList({ selectedMovie, handleMovieClick, handleCloseModal, handleModalBubbling }){
     // pagination
     const moviesPerPage = 12;
     const [currentPage, setCurrentPage] = useState(1);
@@ -125,20 +150,10 @@ function MovieList({ movies_data }){
 
     const totalPages = Math.ceil(movies.length / moviesPerPage);
 
-    // modal
-    const [selectedMovie, setSelectedMovie] = useState(null);
-    const handleMovieClick = (movie) => {
-        setSelectedMovie(movie);
-        console.log(movie);
-    }
-    const handleCloseModal = () => {
-        setSelectedMovie(null);
-    }
-
     const renderMovies = () => {
         return (
             <>
-                <div className='cards-container'>
+                <div className='cards-container' onClick={handleModalBubbling}>
                     {currentMovies.map(data => 
                         <div className="card" key={data.id} >
                             <button onClick={() => handleMovieClick(data)}>
@@ -155,7 +170,7 @@ function MovieList({ movies_data }){
                 </div>
 
                 {selectedMovie && (
-                    <div className="modal">
+                    <div className="modal" onClick={handleModalBubbling}>
                         <div className="modal-content">
                             <div className="content-top">
                                 <h4 className="title">{selectedMovie.title}</h4>
