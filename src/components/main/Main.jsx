@@ -80,7 +80,7 @@ const slideImg = "https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney
 function Slide(){
     return (
         <>
-            <a href="">
+            <a href="#">
                 <div className="img-container">
                     <img src={slideImg} alt="" />
                 </div>
